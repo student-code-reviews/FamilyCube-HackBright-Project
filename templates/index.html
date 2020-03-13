@@ -1,32 +1,54 @@
-<!doctype html>
+ <!doctype html>
 <html>
 <head>
     <title>Homepage</title>
 <style>
 body{
 
-    background-color: lightyellow;
+    background-color:#e6ffff;
 }
+.topnav .login-container button {
+  float: right;
+  padding: 6px 10px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background-color: #555;
+  color: white;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+
+.topnav .login-container button:hover {
+  background-color:grey;
+}
+
+
 </style>
 </head>
 <body>
 
     <form action="/login">
-    <h1 style="color:slateblue;">FamilyCube!</h1>
+      <div class="topnav">
+      <div class="login-container">
+    <form action="/login">
+      <button type="submit">Login</button>
+    </form>
+    <form action="/register">
+      <button type="submit">Sign Up</button>
+    </form>
+  </div>
+</div>
+
+<div style="padding-left:16px">
+    <h1 style="color:black;">FamilyCube!</h1>
 
     <p>
-    <img src="static/family-cute-cartoon-drawing_23-2147495915.jpg" class="rounded" width="500" height="333">
+    <img src="static/imgbin-family-drawing-illustration-cartoon-family-photo-6q3urHvyG7EkAu98DHed8bBG2.JPG" class="rounded" width="300" height="350">
   </p>
 
-    <p><h3 style="color:slateblue;"> Connect with your family around the world on FamilyCube...</h3></p>
-    <p><h3 style="color:slateblue;"> See photos and updates from family and share what's new in your life.</h3></p>
-
-    <input type="submit" value="Log In">
-</form>
-
-    <p><form action="/register">
-    <input type="submit" value="Sign Up">
-</form></p>
+    <p><h3 style="color:black;"> Connect with your family around the world on FamilyCube...</h3></p>
+    <p><h3 style="color:black;"> See photos and updates from family and share what's new in your life.</h3></p>
 
 </body>
-</html>
+</html> 

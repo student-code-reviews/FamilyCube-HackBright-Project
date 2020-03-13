@@ -6,42 +6,27 @@
 <style>
 body{
 
-  background-color:lightblue;
+  background-color:#e6ffff;
 }
+  div{ 
+        margin-bottom:5px; 
+      }
+      label{ 
+        display: inline-block; 
+        width: 105px; 
 </style>
 <body>
 
 <h2>Register to FamilyCube</h2>
 
-<form action="register" method="POST">
+<h4>Please fill in this form to create an account</h4>
 
-  <p><div>
-    <label>
-      First Name
-      <input type="Firstname" name="Firstname">
-    </label>
-  </div></p>
+<form action="/register" method="POST">
 
-  <p><div>
-    <label>
-      Last Name
-      <input type="Lastname" name="Lastname">
-    </label>
-  </div></p>
-
-  <p><div>
-    <label>
-      Email
-      <input type="email" name="Email">
-    </label>
-  </div></p>
-
-  <p><div>
-    <label>
-      Password
-      <input type="password" name="Password">
-    </label>
-  </div></p>
+  <div><label>First Name:<input type="Firstname" name="Firstname"></label></div>
+  <div><label>Last Name:<input type="Lastname" name="Lastname"></label></div>
+  <div><label>Email:<input type="Email" name="Email"></label></div>
+  <div><label>Password:<input type="Password" name="Password"></label></div>
 
   <p><div>
     <input type="submit" value="Register">

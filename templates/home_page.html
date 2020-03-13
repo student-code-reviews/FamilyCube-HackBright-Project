@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Profile Page</title>
+    <title>Homepage Page</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {
+
+  background-color:#e6ffff;
+
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
 }
 
 .topnav {
   overflow: hidden;
-  background-color: #333;
+  background-color: #4d88ff;
 }
 
 .topnav a {
@@ -24,14 +27,14 @@ body {
 }
 
 .topnav a:hover {
-  background-color: #ddd;
+  background-color:#ddd;
   color: black;
 }
-
-.topnav a.active {
-  background-color: #514caf;
-  color: white;
+.events {
+    text-align:right;
 }
+
+
 </style>
 </head>
 <body>
@@ -39,24 +42,25 @@ body {
     <form action="/profile">
 
 <div class="topnav">
-  <a class="active" href="#home">Home</a>
-  <a href="#profile">Profile</a>
-  <a href="#photos">Photos</a>
-  <a href="#videos">Videos</a>
-  <a href="#events">Events</a>
-  <a href="#calendar">Calendar</a>
+  <a class="active" href=#home>Home</a>
+  <a href="/profile">Profile</a>
+  <a href="/photos">Photos</a>
+  <a href="/videos">Videos</a>
+  <a href="/events">Events</a>
+  <a href="/calendar">Calendar</a>
+  <a href="/logout">Logout</a>
 </div>
 
 <div style="padding-left:16px">
   <h1>Welcome to FamilyCube!!!</h1>
+  <div class="events" style="padding-right:16px">
+    <h2>Upcoming Events</h2>
+</div>
   <p>
     <img class="rounded" width="500" height="333">
   </p>
 </div>
 
-<div style="padding-right:16px">
-    <h2>Upcoming events</h2>
-</div>
 </form>
 
 </body>

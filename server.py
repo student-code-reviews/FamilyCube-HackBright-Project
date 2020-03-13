@@ -20,7 +20,7 @@ app.jinja_env.undefined = StrictUndefined
 @app.route('/')
 def indexpage():
     """Indexpage."""
-
+    app.logger.info("Hello World")
     return render_template("index.html")
 
 
@@ -42,6 +42,7 @@ def register_process():
     
 
     new_user = User(email=email, password=password)
+    
 
     db.session.add(new_user)
     db.session.commit()
@@ -87,18 +88,18 @@ def homepage():
     return render_template("home_page.html")
 
 
+@app.route('/profile')
+def profile_page():
 
+    return render_template("profile.html")
 
-
-
-
-# @app.route('/logout')
-# def logout():
-#     """Log out."""
-
-#     del session["user_id"]
-#     flash("Logged Out.")
-#     return redirect("/")
+@app.route('/logout')
+def logout():
+    """Log out."""
+    if session["user_id"] is not None:
+        del session["user_id"]
+        flash("Logged Out.")
+    return redirect("/")
 
 
 

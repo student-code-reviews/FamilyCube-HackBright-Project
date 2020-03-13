@@ -4,30 +4,29 @@
   <title>Login</title>
 </head>
 <style>
-body{
+  body{
 
-  background-color:lightblue;
+  background-color:#e6ffff;
 }
+      div{ 
+        margin-bottom:5px; 
+      }
+      label{ 
+        display: inline-block; 
+        width: 75px; 
+        
 </style>
   <body>
   <h1>Login</h1>
   <form action="/login" method="POST">
 
-    <div>
-      <p><label>Email:
-        <input type="email" name="email" required>
-      </label></p>
-    </div>
+    <div><label>Email:<input type="email" name="email" required></label></div>
 
-    <div>
-      <p><label>Password:
-        <input type="password" name="password" required>
-      </label></p>
-    </div>
+    <div><label>Password:<input type="password" name="password" required></label></div>
 
-    <div>
+    <p><div>
       <input type="submit" value="Log In">
-    </div>
+    </div></p>
 
   </form>
 </body>
