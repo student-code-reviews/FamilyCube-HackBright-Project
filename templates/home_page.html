@@ -1,67 +1,40 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Homepage Page</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body {
-
-  background-color:#e6ffff;
-
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+{% extends "base.html" %}
+{% block content %}
+<style type="text/css">
+  .container {
+  display: table;
+  width: 100%;
 }
-
-.topnav {
-  overflow: hidden;
-  background-color: #4d88ff;
+#left {
+   display: inline-block; 
+        width: 50%;
+        float: left;
 }
-
-.topnav a {
-  float: left;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
+#right {
+   display: inline-block; 
+        width: 50%;
+        float: right;
 }
-
-.topnav a:hover {
-  background-color:#ddd;
-  color: black;
-}
-.events {
-    text-align:right;
-}
-
-
 </style>
-</head>
-<body>
-
-    <form action="/profile">
-
-<div class="topnav">
-  <a class="active" href=#home>Home</a>
-  <a href="/profile">Profile</a>
-  <a href="/photos">Photos</a>
-  <a href="/videos">Videos</a>
-  <a href="/events">Events</a>
-  <a href="/calendar">Calendar</a>
-  <a href="/logout">Logout</a>
-</div>
-
-<div style="padding-left:16px">
+<div class="container">
   <h1>Welcome to FamilyCube!!!</h1>
-  <div class="events" style="padding-right:16px">
-    <h2>Upcoming Events</h2>
-</div>
-  <p>
-    <img class="rounded" width="500" height="333">
-  </p>
-</div>
+  <div id="right" >
+   <i f073 class="fa fa-calendar-o" aria-hidden="true"></i>
+      <h2>Events</h2>
+     {% if events %}
+  
+    {% for event in events %}
+    <ul>
+      <li>{{ event.event_type }}</li>
+      <li>{{ event.event_text }}</li>
+      <li>{{ event.event_date}}</li>
+  </ul>
+  {% endfor %}
+  {% endif %}
+  </div>
+<div id="left" >
+    <img width="500" height="333">
+  </div>
 
-</form>
-
-</body>
-</html>
+</div>
+{% endblock %}

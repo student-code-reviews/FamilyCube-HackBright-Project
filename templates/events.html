@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+      div{ 
+        margin-bottom:5px; 
+      }
+      label{ 
+        display: inline-block; 
+        width: 75px; 
+        
+</style>
+  <body>
+  <h2>Events</h2>
+  {% if events %}
+  
+    {% for event in events %}
+    <ul>
+      <li>{{ event.event_type }}</li>
+      <li>{{ event.event_text }}</li>
+      <li>{{ event.event_date}}</li>
+  </ul>
+  {% endfor %}
+  {% endif %}
+
+{% endblock %}
+  

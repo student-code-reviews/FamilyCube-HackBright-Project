@@ -1,6 +1,6 @@
 
 from flask_sqlalchemy import SQLAlchemy
-import datetime
+#import Date
 
 
 
@@ -18,6 +18,8 @@ class User(db.Model):
 
     user_id = db.Column(db.Integer,primary_key= True,
                            autoincrement=True,nullable=False,)
+    first_name = db.Column(db.String(50),nullable=False,)
+    last_name = db.Column(db.String(50),nullable=False,)
     email = db.Column(db.String(100), nullable=False,unique=True,)
     password = db.Column(db.String(25),nullable=False,)
     
@@ -44,12 +46,19 @@ class Profile(db.Model):
                                     nullable=False,)
     user_id = db.Column(db.Integer,db.ForeignKey('users.user_id'))
     display_name= db.Column(db.String(50),nullable=True,)
+    phonenumber = db.Column(db.String(15),nullable=False,)
+    email = db.Column(db.String(25),nullable=False,)
+    date_of_birth = db.Column(db.Date,nullable=False,)
     address_1 = db.Column(db.String(50),nullable=False,)
     address_2 = db.Column(db.String(50),nullable=True,)
     city = db.Column(db.String(25),nullable=False,)
-    State = db.Column(db.String(25),nullable=False,)
+    state = db.Column(db.String(25),nullable=False,)
     zipcode = db.Column(db.String(25),nullable=False,)
-    country = db.Column(db.String,nullable=False,)
+    country = db.Column(db.String(50),nullable=False,)
+    married = db.Column(db.String,nullable=True,)
+    marriage_date = db.Column(db.Date,nullable=False,)
+    kids = db.Column(db.Integer,nullable=True,)
+
 
     users = db.relationship("User", backref="profiles")
 
@@ -60,6 +69,11 @@ class Profile(db.Model):
         """Return a profile-readable representation of a profile."""
 
         return f"<Profile profile_id={self.profile_id} user_id={self.user_id} display_name={self.display_name}>"
+
+    def fullname(self):
+        """Return a member full name."""
+
+        return f"{self.users.first_name} {self.users.last_name}"
 
 
 class Member(db.Model):
@@ -74,10 +88,11 @@ class Member(db.Model):
     profile_id = db.Column(db.Integer,db.ForeignKey('profiles.profile_id'))
     first_name = db.Column(db.String(50),nullable=False,)
     last_name = db.Column(db.String(50),nullable=False,)
-    date_of_birth = db.Column(db.DateTime,nullable=False,)
-    phonenumber = db.Column(db.Integer,nullable=False,)
+    date_of_birth = db.Column(db.Date,nullable=False,)
+    phonenumber = db.Column(db.String(15),nullable=False,)
     email = db.Column(db.String(25),nullable=False,)
-    marriage_date = db.Column(db.DateTime,nullable=False,)
+    marriage_date = db.Column(db.Date,nullable=True,)
+    relation = db.Column(db.String(25),nullable=True,)
 
 
     profiles = db.relationship("Profile", backref="members")
@@ -90,6 +105,11 @@ class Member(db.Model):
 
         return f"<Member member_id={self.member_id} profile_id={self.profile_id} first_name={self.first_name} last_name={self.last_name} date_of_birth={self.date_of_birth} phonenumber={self.phonenumber} email={self.email}>"
 
+    def fullname(self):
+        """Return a member full name."""
+
+        return f"{self.first_name} {self.last_name}"
+
 
 class Event(db.Model):
 
@@ -99,10 +119,10 @@ class Event(db.Model):
 
     event_id = db.Column(db.Integer,primary_key=True,autoincrement=True,
                                     nullable=False,)
-    profile_id = db.Column(db.Integer,db.ForeignKey('profiles.profile_id'))
-    member_id = db.Column(db.Integer,db.ForeignKey('members.member_id'))
+    profile_id = db.Column(db.Integer,db.ForeignKey('profiles.profile_id'),nullable=True,)
+    member_id = db.Column(db.Integer,db.ForeignKey('members.member_id'),nullable=True,)
     event_type = db.Column(db.String(50),nullable=True,)
-    event_date = db.Column(db.DateTime,nullable=True,)
+    event_date = db.Column(db.Date,nullable=True,)
     event_location = db.Column(db.String(50),nullable=True,)
     event_text = db.Column(db.String,nullable=True,)
 
@@ -147,18 +167,18 @@ class Relationship(db.Model):
 
     relationship_id = db.Column(db.Integer,primary_key=True,autoincrement=True,
                                     nullable=False,)
-    member_one_id = db.Column(db.Integer,db.ForeignKey('members.member_id'))
-    member_two_id = db.Column(db.Integer,db.ForeignKey('members.member_id'))
+    profile1_id = db.Column(db.Integer,db.ForeignKey('profiles.profile_id'))
+    profile2_id = db.Column(db.Integer,db.ForeignKey('profiles.profile_id'))
     member_relation = db.Column(db.String(25),nullable=True,)
 
     #members = db.relationship("Member", backref="realationships")
-    member1 = db.relationship("Member", foreign_keys=[member_one_id])
-    member2 = db.relationship("Member", foreign_keys=[member_two_id])
+    profile1 = db.relationship("Profile", foreign_keys=[profile1_id])
+    profile2 = db.relationship("Profile", foreign_keys=[profile2_id])
 
     def __repr__(self):
         """Return a relationship-readable representation of a relationship."""
 
-        return f"<Relationship relationship_id={self.relationship_id} member_one_id={self.member_one_id} member_two_id={self.member_two_id}>"
+        return f"<Relationship relationship_id={self.relationship_id} member_one_id={self.profile1_id} member_two_id={self.profile2_id}>"
 
 
 class Relation(db.Model):
