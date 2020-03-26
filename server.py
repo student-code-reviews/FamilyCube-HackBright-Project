@@ -92,11 +92,14 @@ def homepage():
     first3_events = latest_events()
     return render_template("home_page.html",events=first3_events)
 
-@app.route('/profile', methods=['GET'])
+
+@app.route('/profile')
 def profile_page():
     """Show form for user to update profile."""
+    profile_id = session.get('profile_id')
+    profile = Profile.query.get(profile_id)
 
-    return render_template("profile.html")
+    return render_template("profile.html", profile=profile)
 
 
 @app.route('/profile', methods=['POST'])
@@ -121,11 +124,9 @@ def profile_update():
     marriage_date = datetime.strptime(marriage_date_str,'%Y-%m-%d')
     kids = int(request.form.get("Kids"))
     userid = session["user_id"]
-    
 
-    user_profile = Profile(display_name=display_name, user_id=userid, email=email,phonenumber=phonenumber,date_of_birth=date_of_birth,
-                          address_1=address_1, address_2=address_2, city=city, state=state, zipcode=zipcode, 
-                          country=country, married=married, marriage_date=marriage_date, kids=kids)
+    # A simpler approach. But only if the form contains *only* matching Profile fields.
+    user_profile = Profile(**request.form)
     db.session.add(user_profile)
     db.session.commit()
     text = f"Birthday for {first_name} {last_name}"
@@ -133,6 +134,7 @@ def profile_update():
     db.session.add(user_event)
     db.session.commit()
 
+    # Form is too large. This is more like 4-5 different forms. Split them up!
     if married == 'yes':
         first_name= request.form.get("Spouse_Firstname")
         last_name = request.form.get("Spouse_Lastname")
@@ -180,7 +182,39 @@ def profile_update():
         db.session.commit()
 
     return redirect("/homepage")
-    
+
+
+@app.route('/profile/<int:profile_id>')
+def get_profile(profile_id):
+    pass
+
+# Profile Members
+
+@app.route('/profile/<int:profile_id>/members')
+def get_profile_members(profile_id):
+    '''Return all members for a given profile'''
+    pass
+
+
+@app.route('/profile/<int:profile_id>/members', methods=['POST'])
+def add_profile_members(profile_id):
+    '''Add a member for a given profile'''
+    pass
+
+
+# Profile Events
+@app.route('/profile/<int:profile_id>/events')
+def get_profile_events(profile_id):
+    '''Return all events for a given profile'''
+    pass
+
+
+@app.route('/profile/<int:profile_id>/events', methods=['POST'])
+def add_profile_events(profile_id):
+    '''Add event for a given profile'''
+    pass
+
+
 @app.route('/events')
 def show_events():
 #     """Show events."""

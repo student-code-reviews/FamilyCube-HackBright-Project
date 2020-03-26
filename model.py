@@ -34,9 +34,7 @@ class User(db.Model):
         return f"<User user_id={self.user_id} email={self.email} password={self.password}>"
 
         
-
-
-class Profile(db.Model):
+class FamilyProfile(db.Model):
     """Data model for profile."""
 
     __tablename__ = "profiles"
@@ -49,8 +47,10 @@ class Profile(db.Model):
     phonenumber = db.Column(db.String(15),nullable=False,)
     email = db.Column(db.String(25),nullable=False,)
     date_of_birth = db.Column(db.Date,nullable=False,)
+    # Is this the address of the household? And what is the second address?
     address_1 = db.Column(db.String(50),nullable=False,)
     address_2 = db.Column(db.String(50),nullable=True,)
+    # Which address does this belong to? A good approach is to add Address
     city = db.Column(db.String(25),nullable=False,)
     state = db.Column(db.String(25),nullable=False,)
     zipcode = db.Column(db.String(25),nullable=False,)
@@ -169,6 +169,7 @@ class Relationship(db.Model):
                                     nullable=False,)
     profile1_id = db.Column(db.Integer,db.ForeignKey('profiles.profile_id'))
     profile2_id = db.Column(db.Integer,db.ForeignKey('profiles.profile_id'))
+    # Good idea, but you should standardize relationship types *broadly*: marriage, sibling, parent
     member_relation = db.Column(db.String(25),nullable=True,)
 
     #members = db.relationship("Member", backref="realationships")
